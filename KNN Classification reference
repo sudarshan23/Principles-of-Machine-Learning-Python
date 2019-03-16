@@ -1,0 +1,196 @@
+Overview of KNN classification
+Reference - https://principlesofmachinelearningsudarshanchokhani23.notebooks.azure.com/j/notebooks/Module1/IntroductionToMachineLearning.ipynb
+
+
+Randomly selected cases to first train and then evaluate a k-nearest-neighbor (KNN) machine learning model. 
+The goal is to predict the type or class of the label, which makes the machine learning model a classification model.
+
+The k-nearest-neighbor algorithm is conceptually simple. 
+In fact, there is no formal training step. 
+Given a known set of cases, a new case is classified by majority vote of the K (where  𝑘=1,2,3 , etc.) points nearest to the values of the new case; that is, the nearest neighbors of the new case.
+
+This data set is famous in the history of statistics. The first publication using these data in statistics by the pioneering statistician Ronald A Fisher was in 1936. Fisher proposed an algorithm to classify the species of iris flowers from physical measurements of their characteristics
+
+
+#Data creation and loading, understanding.
+
+import pandas as pd
+#from statsmodels.api import datasets
+from sklearn import datasets ## Get dataset from sklearn
+
+## Import the dataset from sklearn.datasets
+iris = datasets.load_iris()
+
+## Create a dataframe from the dictionary
+species = [iris.target_names[x] for x in iris.target]
+iris = pd.DataFrame(iris['data'], columns = ['Sepal_Length', 'Sepal_Width', 'Petal_Length', 'Petal_Width'])
+iris['Species'] = species
+
+
+## it will become something like this. Only setosa species are displayed as first 50 are setosa.
+
+---------------------------------------------------------------------------------------
+     Sepal_Length  Sepal_Width  Petal_Length  Petal_Width    Species
+0             5.1          3.5           1.4          0.2     setosa
+1             4.9          3.0           1.4          0.2     setosa
+2             4.7          3.2           1.3          0.2     setosa
+3             4.6          3.1           1.5          0.2     setosa
+4             5.0          3.6           1.4          0.2     setosa
+5             5.4          3.9           1.7          0.4     setosa
+6             4.6          3.4           1.4          0.3     setosa
+
+----------------------------------------------------------------------------------------
+
+iris.dtypes
+
+----------------------------------------------------------------------------------------
+Sepal_Length    float64
+Sepal_Width     float64
+Petal_Length    float64
+Petal_Width     float64
+Species          object
+dtype: object
+----------------------------------------------------------------------------------------
+
+iris['count'] = 1
+iris[['Species', 'count']].groupby('Species').count()
+
+----------------------------------------------------------------------------------------
+	count
+Species	
+setosa	50
+versicolor	50
+virginica	50
+----------------------------------------------------------------------------------------
+# Scatter diagram.
+
+def plot_iris(iris, col1, col2):
+    import seaborn as sns
+    import matplotlib.pyplot as plt
+    sns.lmplot(x = col1, y = col2, 
+               data = iris, 
+               hue = "Species", 
+               fit_reg = False)
+    plt.xlabel(col1)
+    plt.ylabel(col2)
+    plt.title('Iris species shown by color')
+    plt.show()
+plot_iris(iris, 'Petal_Width', 'Sepal_Length')
+plot_iris(iris, 'Sepal_Width', 'Sepal_Length')
+
+#Prepare the data set
+#z-score is the number of standard deviations from the mean a data point is. But more technically it’s a measure of how many standard deviations below or above the mean a raw score is.This normalization process scales each feature so that the mean is 0 and the variance is 1.0.
+
+#The scale function from scikit-learn.preprocessing is used to normalize the features.
+
+from sklearn.preprocessing import scale
+import pandas as pd
+num_cols = ['Sepal_Length', 'Sepal_Width', 'Petal_Length', 'Petal_Width']
+iris_scaled = scale(iris[num_cols])
+iris_scaled = pd.DataFrame(iris_scaled, columns = num_cols)
+print(iris_scaled.describe().round(3))
+
+----------------------------------------------------------------------------------------
+       Sepal_Length  Sepal_Width  Petal_Length  Petal_Width
+count       150.000      150.000       150.000      150.000
+mean         -0.000       -0.000        -0.000       -0.000
+std           1.003        1.003         1.003        1.003
+min          -1.870       -2.439        -1.569       -1.444
+25%          -0.901       -0.588        -1.228       -1.182
+50%          -0.053       -0.125         0.336        0.133
+75%           0.675        0.569         0.763        0.791
+max           2.492        3.115         1.786        1.711
+
+----------------------------------------------------------------------------------------
+
+The methods in the scikit-learn package requires numeric numpy arrays as arguments. Therefore, the strings indicting species must be re-coded as numbers. The code in the cell below does this using a dictionary lookup.
+
+levels = {'setosa':0, 'versicolor':1, 'virginica':2}
+iris_scaled['Species'] = [levels[x] for x in iris['Species']]
+iris_scaled.head()
+
+----------------------------------------------------------------------------------------
+	Sepal_Length	Sepal_Width	Petal_Length	Petal_Width	Species
+0	-0.900681	1.032057	-1.341272	-1.312977	0
+1	-1.143017	-0.124958	-1.341272	-1.312977	0
+2	-1.385353	0.337848	-1.398138	-1.312977	0
+3	-1.506521	0.106445	-1.284407	-1.312977	0
+4	-1.021849	1.263460	-1.341272	-1.312977	0
+----------------------------------------------------------------------------------------
+
+Now, you will split the dataset into a test and evaluation sub-sets. The code in the cell below randomly splits the dataset into training and testing subsets. The features and labels are then separated into numpy arrays.
+
+A random seed (or seed state, or just seed) is a number (or vector) used to initialize a pseudorandom number generator.
+Bernoulli sampling is an equal probability, without replacement sampling design.
+We test and evaluate the on different data to remove the bias.
+
+## Split the data into a training and test set by Bernoulli sampling
+
+from sklearn.model_selection import train_test_split
+import numpy as np
+np.random.seed(3456)
+iris_split = train_test_split(np.asmatrix(iris_scaled), test_size = 75)
+iris_train_features = iris_split[0][:, :4]
+iris_train_labels = np.ravel(iris_split[0][:, 4])
+iris_test_features = iris_split[1][:, :4]
+iris_test_labels = np.ravel(iris_split[1][:, 4])
+print(iris_train_features.shape)
+print(iris_train_labels.shape)
+print(iris_test_features.shape)
+print(iris_test_labels.shape)
+
+----------------------------------------------------------------------------------------
+(75, 4)
+(75,)
+(75, 4)
+(75,)
+
+----------------------------------------------------------------------------------------
+
+Train and evaluate
+
+## Define and train the KNN model
+from sklearn.neighbors import KNeighborsClassifier
+KNN_mod = KNeighborsClassifier(n_neighbors = 3)
+KNN_mod.fit(iris_train_features, iris_train_labels)
+
+----------------------------------------------------------------------------------------
+KNeighborsClassifier(algorithm='auto', leaf_size=30, metric='minkowski',
+           metric_params=None, n_jobs=1, n_neighbors=3, p=2,
+           weights='uniform')
+           
+----------------------------------------------------------------------------------------
+
+iris_test = pd.DataFrame(iris_test_features, columns = num_cols)
+iris_test['predicted'] = KNN_mod.predict(iris_test_features)
+iris_test['correct'] = [1 if x == z else 0 for x, z in zip(iris_test['predicted'], iris_test_labels)]
+accuracy = 100.0 * float(sum(iris_test['correct'])) / float(iris_test.shape[0])
+print(accuracy)
+
+----------------------------------------------------------------------------------------
+94.66666666666667
+----------------------------------------------------------------------------------------
+
+levels = {0:'setosa', 1:'versicolor', 2:'virginica'}
+iris_test['Species'] = [levels[x] for x in iris_test['predicted']]
+markers = {1:'^', 0:'o'}
+colors = {'setosa':'blue', 'versicolor':'green', 'virginica':'red'}
+def plot_shapes(df, col1,col2,  markers, colors):
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+    ax = plt.figure(figsize=(6, 6)).gca() # define plot axis
+    for m in markers: # iterate over marker dictioary keys
+        for c in colors: # iterate over color dictionary keys
+            df_temp = df[(df['correct'] == m)  & (df['Species'] == c)]
+            sns.regplot(x = col1, y = col2, 
+                        data = df_temp,  
+                        fit_reg = False, 
+                        scatter_kws={'color': colors[c]},
+                        marker = markers[m],
+                        ax = ax)
+    plt.xlabel(col1)
+    plt.ylabel(col2)
+    plt.title('Iris species by color')
+    return 'Done'
+plot_shapes(iris_test, 'Petal_Width', 'Sepal_Length', markers, colors)
+plot_shapes(iris_test, 'Sepal_Width', 'Sepal_Length', markers, colors)
