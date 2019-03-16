@@ -49,7 +49,7 @@ Veracity (how trustworthy some data is)
 Overview of Machine Learning with K-Means Classifiers
 e.g. f(x) = y, where x is data case, y is the prediction
 If we know what y's are when training, those are called labels
-Supervised ML—learning using labels (correct answers)
+Supervised ML—learning using labels (correct answers) - a set of cases are used to train, test and evaluate the model.
 Unsupervised ML—explorative output.
 
 (contd)
