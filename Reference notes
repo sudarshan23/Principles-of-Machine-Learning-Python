@@ -1,0 +1,56 @@
+Principles of Machine Learning: Python
+
+Introduction to Machine Learning
+
+High Level Process
+KDD, CRISP-DM, CCC Big Data Pipeline—attempts to scientifically formalise the process of knowledge discovery.
+
+CCC Big Data Pipeline
+  Acquisition/recording
+  Extraction/cleaning/annotation (reduce noise and remove unnecessary data)
+  Integration/aggregation/representation (setup data in one repository for data mining)
+  Analysis/modelling
+  Interpretation
+  
+KDD (Knowledge Discovery and Databases)
+
+Selection
+Preprocessing
+Transformation
+Data mining
+Interpretation/evaluation
+CRISP-DM: Cross-industry process for data mining(includes business understanding and data understanding, and indication of iterative steps)
+
+Typical process (example)
+
+Define what is to be accomplished
+Define constraints
+Identify risks
+Define how results will be evaluated
+Identify sources of data
+Data cleaning and transformation
+Model building (predictive), some examples:
+  Classification: yes/no
+  Regression: numerical value
+  Clustering: grouping observations
+  Recommendation
+Policy construction (prescriptive)
+Evaluation
+
+
+Four Vs of big data
+
+Velocity
+Variety
+Volume
+Veracity (how trustworthy some data is)
+
+
+Overview of Machine Learning with K-Means Classifiers
+e.g. f(x) = y, where x is data case, y is the prediction
+If we know what y's are when training, those are called labels
+Supervised ML—learning using labels (correct answers)
+Unsupervised ML—explorative output.
+
+(contd)
+
