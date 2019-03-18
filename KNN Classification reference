@@ -1,4 +1,6 @@
-Overview of KNN classification
+Overview of KNN(K nearest neighbours) classification
+Layman terms - It serves into classification a sample into classes based on the majority of the neighbours in a very high level view.
+
 Reference - https://principlesofmachinelearningsudarshanchokhani23.notebooks.azure.com/j/notebooks/Module1/IntroductionToMachineLearning.ipynb
 
 
