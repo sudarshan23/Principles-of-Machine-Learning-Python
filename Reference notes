@@ -52,5 +52,67 @@ If we know what y's are when training, those are called labels
 Supervised ML—learning using labels (correct answers) - a set of cases are used to train, test and evaluate the model.
 Unsupervised ML—explorative output.
 
-(contd)
 
+Data Exploration.
+
+Necessary to understand content of data and relationship and seperate it from noise/unwanted data.
+To make best use of information from the data.
+
+Characteristics of the data - size, data types, etc.
+Statistics i.e. 5 point summary.
+Frequencies of categorical features.
+Relationships with features and labels, etc.
+
+Data exploration is an Iterative process.
+
+Data Visualization- Most powerful technique for data exploration.
+
+Types of visualization.
+
+1-d
+	Distribution
+	Frequency
+
+2-d relationship
+	Two numeric variables(x and y axis)
+	Categorical and numberic variables.
+
+Beyond 2-d
+	Aesthetics
+		Position
+		Length
+		Shape
+		Size
+		Color
+	Multiple Axis
+		Multi-axis plot(multi axis arrays)
+		Group by operation(Contioned or faceted)
+
+
+Visualizing Distributions.
+
+Bar plots, autoprices - Categorial.
+Histogram, KDE(Kernal Density Estimates) - Numberic Values.
+In seaborn package: rugs are density of frequency.
+
+Visualizing Data Relationships.
+
+Numberical Relationships
+Scatter Diagram
+alpha : scalar, optional, default: None
+The alpha blending value, between 0 (transparent) and 1 (opaque).
+
+Jointplot method.
+A contour plot is a graphical technique for representing a 3-dimensional surface by plotting constant z slices, 
+called contours, on a 2-dimensional format. That is, given a value for z, lines are drawn for connecting the (x,y)
+coordinates where that z value occurs.
+A Hexbin plot is useful to represent the relationship of 2 numerical variables when you have a lot of data point. 
+Instead of overlapping, the plotting window is split in several hexbins, and the number of points per hexbin is counted. 
+The color denotes this number of points. 
+
+
+Visualizing Categorical Relationships
+Box plot - summarize the distribution of numeric variable, also we can arrange by categories of a categorial variable.
+a simple way of representing statistical data on a plot in which a rectangle is drawn to represent the second and third quartiles, usually with a vertical line inside to indicate the median value. The lower and upper quartiles are shown as horizontal lines either side of the rectangle 
+
+A violin plot is a method of plotting numeric data. It is similar to a box plot, with the addition of a rotated kernel density plot on each side. Violin plots are similar to box plots, except that they also show the probability density of the data at different values, usually smoothed by a kernel density estimator.
