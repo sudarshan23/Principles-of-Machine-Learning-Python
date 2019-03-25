@@ -1,0 +1,81 @@
+Visualizing Data for Regression
+
+
+There are two goals for data exploration and visualization. First to understand the relationships between the data columns. Second to identify features that may be useful for predicting labels in machine learning projects. Additionally, redundant, colinear features can be identified. Thus, visualization for data exploration is an essential data science skill. This process is also known as exploratory data analysis.
+
+
+Dataset : Automobile
+Problem : Create a solution that predicts the price of an automobile based on its characteristics. This type of predictive modeling, in which you attempt to predict a real numeric value, is known as regression.
+Focus : Visually exploring the data to determine which features may be useful in predicting automobile prices.
+
+1. Use of summary statistics to understand the basics of a data set.
+2. Use of several types of plots to display distributions.
+3. Created scatter plots with different transparency.
+4. Use of density plots and hex bin plots to overcome overplotting.
+5. Applied aesthetics to project additional dimensions of categorical and numeric variables onto a 2d plot surface.
+6. Created pair-wise scatter plots and conditioned plots to create displays with multiple axes.
+
+Summarizing and manipulating data:
+	How large is it?
+	What columns are of interest?
+	What are the characteristics of the data derived from summary statistics and counts?
+
+Developing multiple views of complex data using multiple chart types. Exploring complex data requires multiple views to understand the many relationships. It is impossible to develop a complete understanding from just a few plots.
+
+Overview of Matplotlib, Pandas plotting and Seaborn which are commonly used Python plotting packages.
+
+Overview of univariate plot types is a review of creating these basic plots using three Python packages. These plot types allow you to study the distributional properties of the variables in your data set.
+
+Overview of two dimensional plot types is a review of creating basic plot types used to construct visualizations. These plots naturally display the relationship between two variables on the 2-d computer graphics display.
+
+Using Aesthetics is an overview of how to project additional plot dimensions using plot aesthetics. Using aesthetics provides a method for projecting additional dimensions onto the 2-d computer graphics display.
+
+Facetted plotting also know as conditioned plotting or lattice plotting, introduces a powerful method for visualizing higher dimensional data. Arrays of plots of subsets of the data are arranged on the 2-d computer graphics display.
+
+Using Matplotlib methods to add attributes to plots, such as titles and axis labels.
+
+After loading the data, we work to create the relationships and correct/ remove the data which can cause statistical imbalances.
+
+
+After loading the data we observe
+
+There are some basic facts you can derive from these frequency tables.
+
+Some of these variables have a large number of categories. When performing machine learning with a limited size training dataset, having a large number of categories is problematic, since there will be few samples per category. For example, notice how many auto makes are represented. There is only 1 Mercury and 2 Isuzus. Thus, any statistical property for these categories will be poorly determined.
+
+There are significant imbalances in the counts of some categories. You have already seen that there are significant differences in the counts of autos by make. As another example, there are only 3 cars with rear engine autos. Again, any statistical property of rear engine cars will be poorly determined.
+
+Some categorical variables could reasonably converted to numeric variables. For example, the number of cylinders is currently a categorical variable, but could be transformed to a numeric variable.
+
+//plots show the wide range of frequencies for the categorical variables plotted. This will be a problem with modeling, as there are so few members of some classes.
+
+(contd)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
