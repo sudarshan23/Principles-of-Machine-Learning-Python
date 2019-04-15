@@ -1,0 +1,113 @@
+Visualizing Data for Classification
+
+
+Visualization for classification problems shares much in common with visualization for regression problems. Colinear features should be identified so they can be eliminated or otherwise dealt with. However, for classification problems you are looking for features that help separate the label categories. Separation is achieved when there are distinctive feature values for each label category. Good separation results in low classification error rate.
+
+
+Data Preparation
+
+Ensure the ML algorithm work in an optimal way.
+Vital to good ML performance.
+
+Best practices for Data preparation(Iterative)
+
+Exploration, relationships and problems
+Remove Duplicates
+Treat missing valuesTreat errors and outliers
+Scale featuresSplit data set
+Visualization to check resutls 
+
+and go back to check if all looks Good.
+
+Duplicate - How to fix them
+
+Duplicates in ML overweights and bias the ML model training.
+Identify cases. Helps if you have unique columns.
+
+Missing Values:-
+
+Use exploration to detect.
+How are missing values coded ?
+ - NULL
+ - A String or number; NA ; ?, etc.
+ 
+Treatment
+	Remove column with mostly missing values - most information
+	IF few rows remove.
+	Forward or backward fill.(KNN fill)
+	Impute; mean, median, trend, etc
+	
+Errors and Outliers
+
+Erroneous values
+Vs Important data; keep - anamolies ; frauds ; etc application of daomain knowledge
+
+Identify cases
+ - Statistics
+ - Visualization
+ 
+Treatment Strategies
+ - Limit to min-max range
+ - Repace with mean, median etc
+ 
+Scaling
+
+ -Large numeric range can dominate training.
+ large mean values skew model paramenters
+ 
+ Z- score as called standardization
+ mean = 0, SD = 1
+ Distribution is approx normal
+ 
+ Min-Max
+ if Distribution far from normal
+ Fails with outliers.
+ 
+ Treat errors and missing values before scaling.
+ 
+Splitting
+
+ -Split data before training
+	- Independent training, test and eval subsets
+	- Failure to split causes info leakage
+ -Bernoulli Sampling - random sampling avoid bias.
+ 
+ -Cross validation - Resampling method.
+ 
+Finding and Treating Missing Data
+
+ -any() - logical check.
+ - becuase of missing values the numericals and floating are considered as objects.
+ Remove entire columns if alot of missing values are encountered
+ Remove the rows for a few missing values.
+ 
+Finding and Treating Duplicate Data
+
+ ****The shape attribute for numpy arrays returns the dimensions of the array. If Y has n rows and m columns, then Y.shape is (n,m). So Y.shape[0] is n.
+ .drop_duplicate in pandas to remove duplicates
+ 
+Sacling Data
+ Z score rescaling. - StandardScaler() availablei in scikit.
+ Split Dataset
+
+Overview of Feature Engineering
+
+ -Good Features are key to ML.
+ -Goal : Develop highly predictive features
+
+Feature Engineering Steps
+ Exploration to understand data relationships
+ Transform feature
+ Compute interaction terms
+ Visualization
+ Test with ML Model
+ Repeat
+
+Transforming Features
+ Why transform
+	Improve distributin properties
+	More covariate with label
+ Common transformations
+	Square, square root etc
+	difference, summation, etc
+	nonlinear transformed feature are not colinear
